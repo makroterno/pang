@@ -61,10 +61,8 @@ control_down = "p_left_down"
 [node name="PlayerRight" parent="." instance=ExtResource("3_01aqu")]
 position = Vector2(1130, 324)
 sprite = ExtResource("4_o0nxp")
-ball_direction = Vector2(-1, 0)
+direction = -1
 control_up = "p_right_up"
 control_down = "p_right_down"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
