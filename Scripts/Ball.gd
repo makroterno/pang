@@ -12,6 +12,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if X_SPEED <= 800:
+		X_SPEED += 1
+	if Y_SPEED <= 500:
+		Y_SPEED += 0.5
+	velocity_vector = Vector2(X_SPEED, Y_SPEED)
 	position += Vector2(velocity_vector.x * direction.x , velocity_vector.y * direction.y) * delta
 	
 # Add top, bottom and wall collisions
@@ -21,4 +26,5 @@ func _on_area_entered(area):
 		direction.y = -direction.y
 	
 	elif area.name == "Left" or area.name == "Right":
+		print("Ball reached the other side")
 		get_tree().reload_current_scene()

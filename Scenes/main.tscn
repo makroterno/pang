@@ -1,10 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://unm41ipcnua2"]
+[gd_scene load_steps=12 format=3 uid="uid://unm41ipcnua2"]
 
 [ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
 [ext_resource type="PackedScene" uid="uid://b2npvgwxqt7d7" path="res://Scenes/player.tscn" id="3_01aqu"]
 [ext_resource type="Texture2D" uid="uid://k3ugquji8fgv" path="res://Assets/arts/Player.png" id="4_o0nxp"]
 [ext_resource type="Texture2D" uid="uid://dx8pjjfs18km6" path="res://Assets/arts/Computer.png" id="4_tft0p"]
+[ext_resource type="Texture2D" uid="uid://laku02i5hdmw" path="res://Assets/arts/Board.png" id="6_nb2fi"]
+
+[sub_resource type="Curve" id="Curve_awbyw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ehaen"]
+offsets = PackedFloat32Array(0.00666667, 0.226667, 1)
+colors = PackedColorArray(1, 0.12549, 0.866667, 1, 1, 1, 0, 1, 1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ig71"]
 radius = 15.0333
@@ -13,13 +22,29 @@ radius = 15.0333
 size = Vector2(1152, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icfj3"]
-size = Vector2(20, 628)
+size = Vector2(5, 628)
 
 [node name="Main" type="Node2D"]
 
+[node name="Board" type="Sprite2D" parent="."]
+position = Vector2(575.375, 324)
+scale = Vector2(1.44233, 1.42637)
+texture = ExtResource("6_nb2fi")
+
 [node name="Ball" type="Area2D" parent="."]
 position = Vector2(576, 324)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_8cf0k")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Ball"]
+lifetime = 0.4
+fixed_fps = 30
+texture = ExtResource("1_8nktk")
+gravity = Vector2(0, 0)
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_awbyw")
+color_ramp = SubResource("Gradient_ehaen")
 
 [node name="Sprite" type="Sprite2D" parent="Ball"]
 texture = ExtResource("1_8nktk")
@@ -44,12 +69,14 @@ shape = SubResource("RectangleShape2D_tgy7s")
 position = Vector2(0, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_icfj3")
 
 [node name="Right" type="Area2D" parent="."]
 position = Vector2(1152, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_icfj3")
 
 [node name="PlayerLeft" parent="." instance=ExtResource("3_01aqu")]
@@ -64,7 +91,5 @@ sprite = ExtResource("4_o0nxp")
 ball_direction = Vector2(-1, 0)
 control_up = "p_right_up"
 control_down = "p_right_down"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]

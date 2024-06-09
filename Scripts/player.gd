@@ -31,7 +31,9 @@ func _on_area_entered(area):
 		var rng = RandomNumberGenerator.new()
 		print("rng: ", rng)
 		print("Ball entered the paddle")
+		var rand_num = rng.randf_range(-1.0, 1.0)
+		print("rand_num: ", rand_num)
 		#TODO: Increase this code quality & improve ball behaviour
-		area.direction = Vector2(_ball_direction.x, rng.randf_range(-1.0, 1.0))
+		area.direction = Vector2(_ball_direction.x, rand_num)
 
 
