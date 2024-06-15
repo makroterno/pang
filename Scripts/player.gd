@@ -13,8 +13,6 @@ var paddle_direction : int = 1
 @onready var y_size = get_viewport_rect().size.y # May be buggy if there will be a size change since this only initalizes once
 @onready var sprite_2d = $Sprite2D
 
-
-
 func _ready():
 	sprite_2d.texture = sprite
 	_ball_direction = ball_direction
@@ -28,12 +26,27 @@ func _process(delta):
 		
 func _on_area_entered(area):
 	if area.name == "Ball":
-		var rng = RandomNumberGenerator.new()
-		print("rng: ", rng)
-		print("Ball entered the paddle")
-		var rand_num = rng.randf_range(-1.0, 1.0)
-		print("rand_num: ", rand_num)
-		#TODO: Increase this code quality & improve ball behaviour
-		area.direction = Vector2(_ball_direction.x, rand_num)
+		# Determine the position where the ball hits the paddle
+		var paddle_center_y = position.y
+		var impact_y = area.position.y - paddle_center_y
+
+		# Normalize the impact point (-1.0 to 1.0 range)
+		var paddle_height = sprite_2d.texture.get_size().y
+		var impact_factor = (impact_y / (paddle_height / 2))
+
+		# Modify ball's direction based on impact factor
+		var ball_direction = area.direction
+		ball_direction.y = impact_factor
+		ball_direction = ball_direction.normalized()
+
+		# Optionally adjust speed based on paddle's velocity (if paddle is moving)
+		var paddle_velocity = Vector2(0, 0) # Replace with your paddle's actual velocity if available
+		var ball_speed = area.speed
+		ball_speed += paddle_velocity.length() * 0.1 # Adjust the factor as needed
+
+		# Set the new direction and speed to the ball
+		area.direction = -ball_direction
+		area.speed = ball_speed
+
 
 
