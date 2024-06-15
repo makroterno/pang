@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://unm41ipcnua2"]
+[gd_scene load_steps=16 format=3 uid="uid://unm41ipcnua2"]
 
 [ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c2fdoc4jmebhh" path="res://Assets/arts/ScoreBar.png" id="5_xjyr8"]
 [ext_resource type="Texture2D" uid="uid://laku02i5hdmw" path="res://Assets/arts/Board.png" id="6_nb2fi"]
 [ext_resource type="Script" path="res://Scripts/player_left.gd" id="7_umkkf"]
-[ext_resource type="PackedScene" uid="uid://cv1fneqclrx4y" path="res://Scenes/ice_spike.tscn" id="10_v26nm"]
 
 [sub_resource type="Curve" id="Curve_awbyw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -134,9 +133,5 @@ position = Vector2(1152, 324)
 position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_icfj3")
 
-[node name="IceSpikeBall" parent="." instance=ExtResource("10_v26nm")]
-position = Vector2(745, 210)
-
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
 [connection signal="hand_over" from="Ball" to="." method="_on_ball_hand_over"]
-[connection signal="ice_spike_ball_touched" from="Ball" to="." method="_on_ball_ice_spike_ball_touched"]

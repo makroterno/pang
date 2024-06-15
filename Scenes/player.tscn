@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2npvgwxqt7d7"]
+[gd_scene load_steps=6 format=3 uid="uid://b2npvgwxqt7d7"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_wm33a"]
 [ext_resource type="Texture2D" uid="uid://k3ugquji8fgv" path="res://Assets/arts/Player.png" id="2_at5ix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ipo"]
 size = Vector2(16, 120)
+
+[sub_resource type="Curve" id="Curve_qlnpg"]
+_data = [Vector2(0.00561798, 1), 0.0, 0.0, 0, 0, Vector2(0.988764, 0.307692), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6rke5"]
+offsets = PackedFloat32Array(0, 0.726667)
+colors = PackedColorArray(0, 0, 1, 1, 1, 1, 1, 1)
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_wm33a")
@@ -14,6 +22,36 @@ texture = ExtResource("2_at5ix")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f1ipo")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-3, -60)
+amount = 100
+speed_scale = 2.65
+explosiveness = 0.04
+randomness = 0.69
+lifetime_randomness = 0.42
+emission_shape = 1
+emission_sphere_radius = 63.0
+direction = Vector2(0, 1)
+spread = 41.55
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 251.52
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+tangential_accel_min = 43.5
+tangential_accel_max = 43.5
+damping_min = 1.965
+damping_max = 50.0
+angle_min = 417.0
+angle_max = 468.5
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_qlnpg")
+color = Color(0.431282, 0.611583, 1, 1)
+color_ramp = SubResource("Gradient_6rke5")
+hue_variation_min = -1.0
+hue_variation_max = 0.65
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

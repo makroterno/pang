@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://cv1fneqclrx4y"]
+
+[ext_resource type="Script" path="res://Scenes/ice_spike.gd" id="1_07jd0"]
+[ext_resource type="Texture2D" uid="uid://35je7gupxfp5" path="res://Assets/arts/GameFXexport/GIF_Files/SPRITESHEET_Files/IceShatter_2_96x96.png" id="1_by7eg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p168r"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(9, 0, 76, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnnyc"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(105, 0, 76, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwn7e"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(201, 0, 76, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u7oh"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(489, 0, 76, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6edi"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(585, 0, 76, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrys0"]
+atlas = ExtResource("1_by7eg")
+region = Rect2(681, 0, 76, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uocvn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p168r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnnyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwn7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u7oh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6edi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrys0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7fym"]
+radius = 14.0357
+
+[node name="ice_spike" type="Area2D"]
+script = ExtResource("1_07jd0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 8)
+sprite_frames = SubResource("SpriteFrames_uocvn")
+autoplay = "default"
+frame_progress = 0.755563
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i7fym")
