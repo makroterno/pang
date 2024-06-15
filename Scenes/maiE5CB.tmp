@@ -28,10 +28,10 @@ shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tgy7s"]
-size = Vector2(1152, 201)
+size = Vector2(1152, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icfj3"]
-size = Vector2(348, 628)
+size = Vector2(5, 628)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lfm4e")
@@ -111,32 +111,31 @@ control_down = "p_right_down"
 position = Vector2(575, 37)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Top"]
-position = Vector2(0, -92)
 shape = SubResource("RectangleShape2D_tgy7s")
 
 [node name="Bottom" type="Area2D" parent="Borders"]
 position = Vector2(576, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Bottom"]
-position = Vector2(0, 738.5)
+position = Vector2(0, 648)
 shape = SubResource("RectangleShape2D_tgy7s")
 
 [node name="Left" type="Area2D" parent="Borders"]
 position = Vector2(0, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Left"]
-position = Vector2(-173, 0)
+position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_icfj3")
 
 [node name="Right" type="Area2D" parent="Borders"]
 position = Vector2(1152, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Right"]
-position = Vector2(175, 0)
+position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_icfj3")
 
 [node name="IceSpikeBall" parent="." instance=ExtResource("10_v26nm")]
-position = Vector2(945, 549)
+position = Vector2(1039, 83)
 
 [connection signal="ice_spike_retrieved" from="." to="Players/PlayerRight" method="_on_main_ice_spike_retrieved"]
 [connection signal="ice_spike_retrieved" from="." to="IceSpikeBall" method="_on_main_ice_spike_retrieved"]

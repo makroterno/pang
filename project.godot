@@ -15,6 +15,11 @@ run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [input]
 
 p_right_up={
@@ -45,10 +50,10 @@ use_power={
 
 [physics]
 
-common/max_physics_steps_per_frame=60
+common/physics_ticks_per_second=180
+common/max_physics_steps_per_frame=100
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method.mobile="forward_plus"
 renderer/rendering_method.web="forward_plus"
