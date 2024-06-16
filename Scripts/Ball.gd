@@ -49,7 +49,7 @@ func _on_area_entered(area):
 	elif area.name == "PlayerLeft" or area.name == "PlayerRight":
 		_handle_paddle_collision(area)
 		
-	elif area.name == "IceSpikeBall":
+	elif area.name.begins_with("IceSpikeBall"):
 		emit_signal("ice_spike_ball_touched", area)
 
 

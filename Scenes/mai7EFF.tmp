@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://unm41ipcnua2"]
 
-[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_8cf0k"]
+[ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
-[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_lfm4e"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_lfm4e"]
 [ext_resource type="PackedScene" uid="uid://b2npvgwxqt7d7" path="res://Scenes/player.tscn" id="3_01aqu"]
 [ext_resource type="Texture2D" uid="uid://k3ugquji8fgv" path="res://Assets/arts/Player.png" id="4_o0nxp"]
 [ext_resource type="Texture2D" uid="uid://dx8pjjfs18km6" path="res://Assets/arts/Computer.png" id="4_tft0p"]
@@ -141,5 +141,4 @@ autostart = true
 [connection signal="hand_over" from="Ball" to="." method="_on_ball_hand_over"]
 [connection signal="ice_spike_ball_touched" from="Ball" to="." method="_on_ball_ice_spike_ball_touched"]
 [connection signal="ice_spike_ball_touched" from="Ball" to="Players/PlayerRight" method="_on_ball_ice_spike_ball_touched"]
-[connection signal="power_used" from="Players/PlayerRight" to="." method="_on_player_right_power_used"]
 [connection signal="timeout" from="SpikeBallSpawnTimer" to="." method="_on_spike_ball_spawn_timer_timeout"]

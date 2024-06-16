@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://db7c4sdnf52wd"]
 
-[ext_resource type="Script" path="res://Scenes/ice_spike_projectile.gd" id="1_1f7m5"]
 [ext_resource type="Texture2D" uid="uid://4wd7ndvn1lvx" path="res://Assets/arts/GameFXexport/GIF_Files/SPRITESHEET_Files/IcePick_64x64.png" id="1_jsueh"]
+[ext_resource type="Script" path="res://Scripts/ice_spike_projectile.gd" id="1_u0lnq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cl8xb"]
 atlas = ExtResource("1_jsueh")
@@ -225,7 +225,7 @@ animations = [{
 size = Vector2(55, 7)
 
 [node name="IceSpike" type="Area2D"]
-script = ExtResource("1_1f7m5")
+script = ExtResource("1_u0lnq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2, -6)

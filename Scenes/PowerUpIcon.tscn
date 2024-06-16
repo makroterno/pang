@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmxqoso1iiw1p"]
+
+[ext_resource type="Script" path="res://Scripts/power_up_icon.gd" id="1_y5ns5"]
+[ext_resource type="Texture2D" uid="uid://cvvnmgxthjgst" path="res://icon.svg" id="2_gw3fc"]
+
+[node name="PowerUpIcon" type="Area2D"]
+script = ExtResource("1_y5ns5")
+sprite = ExtResource("2_gw3fc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_gw3fc")
