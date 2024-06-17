@@ -17,12 +17,21 @@ const ICE_SPIKE = preload("res://Scenes/ice_spike.tscn") # SPIKE BALL INITIALIZA
 const POWER_UP_ICON = preload("res://Scenes/PowerUpIcon.tscn")
 const BALL_INITIAL_POSITION = Vector2(576, 324)
 const BALL_INITIAL_SPEED = 200
-const SPIKE_BALL_SPAWN_MIN_WAIT = 25
-const SPIKE_BALL_SPAWN_MAX_WAIT = 35
+const SPIKE_BALL_SPAWN_MIN_WAIT = 3
+const SPIKE_BALL_SPAWN_MAX_WAIT = 5
 const SPIKE_BALL_X_MIN = 90
 const SPIKE_BALL_X_MAX = 1040
 const SPIKE_BALL_Y_MIN = 70
 const SPIKE_BALL_Y_MAX = 615
+
+var power_used_ai = false
+var power_used_player = false
+
+var ice_spike_icon_ai = null
+var ice_spike_icon_player = null
+
+var already_got_power = false
+var already_got_power_ai = false
 
 func _ready():
 	# Connect signals if needed
@@ -65,12 +74,35 @@ func _on_spike_ball_spawn_timer_timeout():
 	print(spike_ball_spawn_timer.wait_time)
 	_initialize_spike_ball()
 
-func _on_ball_ice_spike_ball_touched(spike_ball: Node):
-	spike_ball.queue_free()
-	ice_spike_icon = POWER_UP_ICON.instantiate()
-	add_child(ice_spike_icon)
-	ice_spike_icon.position = Vector2(878, 27)
-
 func _on_player_right_power_used():
+	print("PLAYER POWER USED BRO")
+	already_got_power = false
 	if ice_spike_icon != null:
 		ice_spike_icon.queue_free()
+
+
+func _on_player_right_player_ice_spike_ready(spike_ball):
+	if not already_got_power:
+		print("PLAYER ICE SPIKE READY")
+		spike_ball.queue_free()
+		ice_spike_icon = POWER_UP_ICON.instantiate()
+		add_child(ice_spike_icon)
+		ice_spike_icon.position = Vector2(878, 27)
+	already_got_power = true
+
+
+func _on_player_right_ai_ice_spike_ready(spike_ball):
+
+	if not already_got_power_ai:
+		print("AI ICE SPIKE READY")
+		spike_ball.queue_free()
+		ice_spike_icon_ai = POWER_UP_ICON.instantiate()
+		add_child(ice_spike_icon_ai)
+		ice_spike_icon_ai.position = Vector2(280, 27)
+	already_got_power_ai = true
+	
+func _on_player_left_power_used():
+	print("LEFT GUY USED HIS POWERS!!")
+	already_got_power_ai = false
+	if ice_spike_icon_ai != null:
+		ice_spike_icon_ai.queue_free()

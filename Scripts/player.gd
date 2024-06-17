@@ -15,7 +15,12 @@ signal power_used
 var velocity : float = 500.0
 var _ball_direction = Vector2(1, 0)
 var paddle_direction : int = 1
-var is_ice_spike_available = false
+var is_ice_spike_touched = false
+var is_ice_spike_touched_from_right = false
+var ai_ice_spike_touched = false
+var is_freezed = false
+signal ai_ice_spike_ready
+signal player_ice_spike_ready
 
 const ICE_SPIKE_PROJECTILE = preload("res://Scenes/ice_spike_projectile.tscn")
 
@@ -25,6 +30,7 @@ func activate_power():
 	main.add_child(ice_spike)
 	ice_spike.position = position
 	ice_spike.name = "IceSpike"
+	return ice_spike
 
 func _ready():
 	sprite_2d.texture = sprite
@@ -33,15 +39,43 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	paddle_direction = Input.get_axis(control_up, control_down)
-	if paddle_direction:
-		position.y += velocity * paddle_direction * delta
-		position.y = clamp(position.y, 60, y_size - 60)
-	
-	if Input.is_action_just_pressed("use_power") and is_ice_spike_available:
-		var spike = activate_power()
-		is_ice_spike_available = false
-		power_used.emit()
+	if not is_freezed:
+		paddle_direction = Input.get_axis(control_up, control_down)
+		if paddle_direction:
+			position.y += velocity * paddle_direction * delta
+			position.y = clamp(position.y, 60, y_size - 60)
+		
+		if Input.is_action_just_pressed("use_power") and is_ice_spike_touched:
+			var spike = activate_power()
+			spike.position.x -= 100
+			is_ice_spike_touched = false
+			power_used.emit()
+		
+	else:
+		await get_tree().create_timer(1.5).timeout # waits for 1 second
+		is_freezed = false
+		cpu_particles_2d.emitting = false
 
 func _on_ball_ice_spike_ball_touched(spike_ball):
-		is_ice_spike_available = true
+	if is_ice_spike_touched_from_right:
+		is_ice_spike_touched = true
+		player_ice_spike_ready.emit(spike_ball)
+	else:
+		ai_ice_spike_ready.emit(spike_ball)
+
+
+func _on_ball_bounced_from_right():
+	print("ball bounced from right")
+	is_ice_spike_touched_from_right = true
+
+
+func _on_ball_bounced_from_left():
+	print("ball bounced from left")
+	is_ice_spike_touched_from_right = false
+
+
+func _on_area_entered(area):
+	if area.name.begins_with("IceSpike"):
+		print("freeze")
+		is_freezed = true
+		cpu_particles_2d.emitting = true

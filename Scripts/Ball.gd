@@ -1,6 +1,8 @@
 extends Area2D
 signal hand_over
 signal ice_spike_ball_touched
+signal bounced_from_left
+signal bounced_from_right
 
 var speed = 200
 var direction = Vector2(1, 1)
@@ -45,9 +47,14 @@ func _on_area_entered(area):
 	
 	elif area.name == "Left" or area.name == "Right":
 		emit_signal("hand_over", area)
+		
 
 	elif area.name == "PlayerLeft" or area.name == "PlayerRight":
 		_handle_paddle_collision(area)
+		if area.name == "PlayerLeft":
+			emit_signal("bounced_from_left")
+		else:
+			emit_signal("bounced_from_right")
 		
 	elif area.name.begins_with("IceSpikeBall"):
 		emit_signal("ice_spike_ball_touched", area)
