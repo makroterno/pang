@@ -23,7 +23,7 @@ const SPIKE_BALL_X_MIN = 90
 const SPIKE_BALL_X_MAX = 1040
 const SPIKE_BALL_Y_MIN = 70
 const SPIKE_BALL_Y_MAX = 615
-
+const GET_BIGGER = preload("res://Scenes/get_bigger.tscn")
 var power_used_ai = false
 var power_used_player = false
 
@@ -45,6 +45,15 @@ func _initialize_spike_ball():
 	print("Ball name: ", spike_ball.name)
 	spike_ball.animated_sprite_2d.play()
 	spike_ball.position = Vector2(spike_ball_x, spike_ball_y)
+
+func _initalize_get_bigger_ball():
+	print("Initializing Get Bigger Ball")
+	var get_bigger_ball = GET_BIGGER.instantiate()
+	add_child(get_bigger_ball)
+	get_bigger_ball.name = "GetBiggerBall"
+	print("Ball name: ", get_bigger_ball.name)
+	get_bigger_ball.animated_sprite_2d.play()
+	get_bigger_ball.position = Vector2(clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX), clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX))
 
 func _increase_score(paddle: Node):
 	print("Ball reached the other side")
@@ -73,6 +82,7 @@ func _on_spike_ball_spawn_timer_timeout():
 	spike_ball_spawn_timer.wait_time = randf_range(SPIKE_BALL_SPAWN_MIN_WAIT, SPIKE_BALL_SPAWN_MAX_WAIT)
 	print(spike_ball_spawn_timer.wait_time)
 	_initialize_spike_ball()
+	_initalize_get_bigger_ball()
 
 func _on_player_right_power_used():
 	print("PLAYER POWER USED BRO")
@@ -92,7 +102,6 @@ func _on_player_right_player_ice_spike_ready(spike_ball):
 
 
 func _on_player_right_ai_ice_spike_ready(spike_ball):
-
 	if not already_got_power_ai:
 		print("AI ICE SPIKE READY")
 		spike_ball.queue_free()
@@ -106,3 +115,7 @@ func _on_player_left_power_used():
 	already_got_power_ai = false
 	if ice_spike_icon_ai != null:
 		ice_spike_icon_ai.queue_free()
+
+
+func _on_ball_get_bigger_ball_touched():
+	pass # Replace with function body.

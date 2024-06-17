@@ -44,3 +44,11 @@ func _on_player_right_ai_ice_spike_ready(spike_ball):
 	power_used.emit()
 	spike.direction = 1
 	spike.position.x += 100
+
+
+func _on_player_right_ai_get_bigger(get_bigger_ball):
+		scale.x = 3
+		scale.y = 3
+		await get_tree().create_timer(3).timeout # waits for 1 second
+		scale.x = 1
+		scale.y = 1

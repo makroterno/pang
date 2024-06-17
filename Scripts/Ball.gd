@@ -1,6 +1,7 @@
 extends Area2D
 signal hand_over
 signal ice_spike_ball_touched
+signal get_bigger_ball_touched
 signal bounced_from_left
 signal bounced_from_right
 
@@ -58,5 +59,8 @@ func _on_area_entered(area):
 		
 	elif area.name.begins_with("IceSpikeBall"):
 		emit_signal("ice_spike_ball_touched", area)
+		
+	elif area.name.begins_with("GetBiggerBall"):
+		emit_signal("get_bigger_ball_touched", area)
 
 
