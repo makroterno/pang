@@ -26,7 +26,7 @@ const SPIKE_BALL_Y_MAX = 615
 const GET_BIGGER = preload("res://Scenes/get_bigger.tscn")
 var power_used_ai = false
 var power_used_player = false
-
+const GET_SMALLER = preload("res://Scenes/get_smaller.tscn")
 var ice_spike_icon_ai = null
 var ice_spike_icon_player = null
 
@@ -34,9 +34,8 @@ var already_got_power = false
 var already_got_power_ai = false
 
 func _ready():
-	# Connect signals if needed
-	spike_ball_spawn_timer.connect("timeout", Callable(self, "_on_spike_ball_spawn_timer_timeout"))
-
+	player_right_score.text = str(GlobalVariables.right_player_score)
+	player_left_score.text = str(GlobalVariables.left_player_score)
 func _initialize_spike_ball():
 	print("Initializing Spike Ball")
 	var spike_ball = ICE_SPIKE.instantiate()
@@ -55,22 +54,31 @@ func _initalize_get_bigger_ball():
 	get_bigger_ball.animated_sprite_2d.play()
 	get_bigger_ball.position = Vector2(clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX), clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX))
 
+func _initalize_get_smaller_ball():
+	print("Initializing Get Smaller Ball")
+	var get_smaller_ball = GET_SMALLER.instantiate()
+	add_child(get_smaller_ball)
+	get_smaller_ball.name = "GetSmallerBall"
+	print("Ball name: ", get_smaller_ball.name)
+	get_smaller_ball.animated_sprite_2d.play()
+	get_smaller_ball.position = Vector2(clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX), clamp(randf() * screen_size.x, SPIKE_BALL_X_MIN, SPIKE_BALL_X_MAX))
+
 func _increase_score(paddle: Node):
 	print("Ball reached the other side")
 	if paddle.name == "Left":
-		_player_right_score += 1
-		player_right_score.text = str(_player_right_score)
+		GlobalVariables.right_player_score += 1
+		player_right_score.text = str(GlobalVariables.right_player_score)
 		print("Left")
 	else:
-		_player_left_score += 1
-		player_left_score.text = str(_player_left_score)
+		GlobalVariables.left_player_score += 1
+		player_left_score.text = str(GlobalVariables.left_player_score)
 		print("Right")
 
 func _restart_game():
 	# Do not restart the WHOLE scene. There is no need for that.
 	ball.position = BALL_INITIAL_POSITION
 	ball.speed = BALL_INITIAL_SPEED
-
+	get_tree().reload_current_scene()
 func _on_ball_hand_over(paddle: Node):
 	_increase_score(paddle)
 	_restart_game()
@@ -83,6 +91,7 @@ func _on_spike_ball_spawn_timer_timeout():
 	print(spike_ball_spawn_timer.wait_time)
 	_initialize_spike_ball()
 	_initalize_get_bigger_ball()
+	_initalize_get_smaller_ball()
 
 func _on_player_right_power_used():
 	print("PLAYER POWER USED BRO")
@@ -116,6 +125,3 @@ func _on_player_left_power_used():
 	if ice_spike_icon_ai != null:
 		ice_spike_icon_ai.queue_free()
 
-
-func _on_ball_get_bigger_ball_touched():
-	pass # Replace with function body.

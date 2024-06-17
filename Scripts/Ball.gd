@@ -4,6 +4,7 @@ signal ice_spike_ball_touched
 signal get_bigger_ball_touched
 signal bounced_from_left
 signal bounced_from_right
+signal get_smaller_ball_touched
 
 var speed = 200
 var direction = Vector2(1, 1)
@@ -18,10 +19,11 @@ func _process(delta):
 		speed += 1
 	else:
 		speed = 800
+	var dir_speed = direction * speed
+	if dir_speed.length() >= 800:
+		dir_speed = dir_speed.normalized() * 800
 	position += direction * speed * delta
 	
-# Add top, bottom and wall collisions
-
 func _handle_paddle_collision(paddle):
 	# Determine the position where the ball hits the paddle
 	var paddle_center_y = paddle.position.y
@@ -62,5 +64,8 @@ func _on_area_entered(area):
 		
 	elif area.name.begins_with("GetBiggerBall"):
 		emit_signal("get_bigger_ball_touched", area)
+		
+	elif area.name.begins_with("GetSmallerBall"):
+		emit_signal("get_smaller_ball_touched", area)
 
 

@@ -1,6 +1,7 @@
 extends Node2D
 class_name Player
 signal power_used
+@onready var player_left = $"../PlayerLeft"
 
 @export var sprite : Texture2D
 @export var ball_direction = Vector2(1, 0)
@@ -23,6 +24,8 @@ signal ai_ice_spike_ready
 signal player_ice_spike_ready
 signal ai_get_bigger
 signal player_get_bigger
+signal ai_get_smaller
+signal player_get_smaller
 
 const ICE_SPIKE_PROJECTILE = preload("res://Scenes/ice_spike_projectile.tscn")
 
@@ -99,3 +102,20 @@ func _on_ball_get_bigger_ball_touched(get_bigger_ball):
 		ai_get_bigger.emit(get_bigger_ball)
 		get_bigger_ball.queue_free()
 
+
+
+func _on_ball_get_smaller_ball_touched(get_smaller_ball):
+	if is_ice_spike_touched_from_right:
+		print("GET SMALLER BALL TOUCHED FROM THE PLAYER")
+		is_ice_spike_touched = true
+		get_smaller_ball.queue_free()
+		player_get_smaller.emit(get_smaller_ball)
+		player_left.scale.x = 0.5
+		player_left.scale.y = 0.5
+		await get_tree().create_timer(3).timeout # waits for 1 second
+		player_left.scale.x = 1
+		player_left.scale.y = 1
+	else:
+		print("GET BIGGER BALL TOUCHED FROM THE AI")
+		ai_get_smaller.emit(get_smaller_ball)
+		get_smaller_ball.queue_free()

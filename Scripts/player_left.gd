@@ -1,6 +1,7 @@
 extends Player
 
 @onready var ball = $"../../Ball"
+@onready var player_right = $"../PlayerRight"
 
 var vel : float = 550.0
 var is_freezed2 : bool = false
@@ -52,3 +53,11 @@ func _on_player_right_ai_get_bigger(get_bigger_ball):
 		await get_tree().create_timer(3).timeout # waits for 1 second
 		scale.x = 1
 		scale.y = 1
+
+
+func _on_player_right_ai_get_smaller(get_smaller_ball):
+		player_right.scale.x = 0.5
+		player_right.scale.y = 0.5
+		await get_tree().create_timer(3).timeout # waits for 1 second
+		player_right.scale.x = 1
+		player_right.scale.y = 1
