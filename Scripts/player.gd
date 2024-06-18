@@ -2,7 +2,7 @@ extends Node2D
 class_name Player
 signal power_used
 @onready var player_left = $"../PlayerLeft"
-
+const PLAYER_1_PNG_5 = preload("res://Assets/arts/Player-1.png_5.png")
 @export var sprite : Texture2D
 @export var ball_direction = Vector2(1, 0)
 @export var control_up : String = ""
@@ -57,7 +57,9 @@ func _process(delta):
 			power_used.emit()
 		
 	else:
+		sprite_2d.texture = PLAYER_1_PNG_5
 		await get_tree().create_timer(1.5).timeout # waits for 1 second
+		sprite_2d.texture = sprite
 		is_freezed = false
 		cpu_particles_2d.emitting = false
 
@@ -83,7 +85,7 @@ func _on_area_entered(area):
 	if area.name.begins_with("IceSpike"):
 		print("freeze")
 		is_freezed = true
-		cpu_particles_2d.emitting = true
+		#cpu_particles_2d.emitting = true
 
 
 func _on_ball_get_bigger_ball_touched(get_bigger_ball):

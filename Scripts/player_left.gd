@@ -2,7 +2,7 @@ extends Player
 
 @onready var ball = $"../../Ball"
 @onready var player_right = $"../PlayerRight"
-
+const PLAYER_1_PNG_3_1_PNG = preload("res://Assets/arts/Player-1.png_3-1.png.png")
 var vel : float = 550.0
 var is_freezed2 : bool = false
 
@@ -24,7 +24,9 @@ func _process(delta):
 			position.y = clamp(position.y, 60, y_size - 60)
 			
 		else:
+			sprite_2d.texture = PLAYER_1_PNG_3_1_PNG
 			await get_tree().create_timer(1.5).timeout # waits for 1 second
+			sprite_2d.texture = sprite
 			is_freezed2 = false
 			cpu_particles_2d.emitting = false
 
@@ -34,7 +36,7 @@ func _on_area_entered(area):
 	if area.name.begins_with("IceSpike"):
 		print("freeze")
 		is_freezed2 = true
-		cpu_particles_2d.emitting = true
+		#cpu_particles_2d.emitting = true
 
 
 func _on_player_right_ai_ice_spike_ready(spike_ball):

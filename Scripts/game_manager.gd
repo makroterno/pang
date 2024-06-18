@@ -3,7 +3,8 @@ extends Node2D
 @onready var player_left_score = $Scoreboard/PlayerLeftScore
 @onready var player_right_score = $Scoreboard/PlayerRightScore
 @onready var ball = $Ball
-@onready var spike_ball_spawn_timer = $SpikeBallSpawnTimer
+@onready var spike_ball_spawn_timer = $Timers/SpikeBallSpawnTimer
+
 @onready var screen_size = Vector2(get_viewport_rect().size)
 
 var _player_left_score : float = 0
