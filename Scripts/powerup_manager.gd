@@ -137,25 +137,22 @@ func _on_ball_ice_spike_ball_touched(ball):
 			power_up_icon_player_left.visible = true
 			ball.queue_free()
 			ice_spike_available_left.emit()
-		
+	
 		is_ice_spike_available_left = true
 			
 func _on_ball_bounced_from_left():
 	# To decide which player should get the powerup
-	
 	right_player_touched_last = false
 	left_player_touched_last = true
 
 
 func _on_ball_bounced_from_right():
 	# To decide which player should get the powerup
-	
 	right_player_touched_last = true
 	left_player_touched_last = false
 
 
 func _on_spike_ball_spawn_timer_timeout():
-
 	spike_ball_spawn_timer.wait_time = randf_range(SPIKE_BALL_SPAWN_MIN_WAIT, SPIKE_BALL_SPAWN_MAX_WAIT)
 	_initialize_spike_ball()
 
@@ -167,10 +164,10 @@ func _on_get_smaller_ball_spawn_timer_timeout():
 	get_smaller_ball_spawn_timer.wait_time = randf_range(GET_SMALLER_BALL_SPAWN_MIN_WAIT, GET_SMALLER_BALL_SPAWN_MAX_WAIT)
 	_initialize_get_smaller_ball()
 
-
 func _on_player_left_power_used():
 	power_up_icon_player_left.visible = false
-
-
+	is_ice_spike_available_left = false
+	
 func _on_player_right_power_used():
 	power_up_icon_player_right.visible = false
+	is_ice_spike_available_right = false
