@@ -72,7 +72,6 @@ func _on_ball_ice_spike_ball_touched(spike_ball):
 
 
 func _on_ball_bounced_from_right():
-	print("ball bounced from right")
 	is_ice_spike_touched_from_right = true
 
 

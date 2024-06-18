@@ -32,15 +32,15 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	print("Left paddle area enter name: ", area.name)
+
 	if area.name.begins_with("IceSpike"):
-		print("freeze")
+
 		is_freezed2 = true
 		#cpu_particles_2d.emitting = true
 
 
 func _on_player_right_ai_ice_spike_ready(spike_ball):
-	print("I ACQUIRED THE ICE SPIKE")
+
 	await get_tree().create_timer(1).timeout # waits for 1 second
 	var spike = activate_power()
 	ai_ice_spike_touched = false
