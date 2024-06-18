@@ -41,14 +41,14 @@ const POWERUP_SPAWN_X_MAX = 1040
 const POWERUP_SPAWN_Y_MIN = 70
 const POWERUP_SPAWN_Y_MAX = 615
 
-var SPIKE_BALL_SPAWN_MIN_WAIT = 5
-var SPIKE_BALL_SPAWN_MAX_WAIT = 10
+var SPIKE_BALL_SPAWN_MIN_WAIT = 25
+var SPIKE_BALL_SPAWN_MAX_WAIT = 35
 
-var GET_BIGGER_BALL_SPAWN_MIN_WAIT = 5
-var GET_BIGGER_BALL_SPAWN_MAX_WAIT = 10
+var GET_BIGGER_BALL_SPAWN_MIN_WAIT = 25
+var GET_BIGGER_BALL_SPAWN_MAX_WAIT = 35
 
-var GET_SMALLER_BALL_SPAWN_MIN_WAIT = 5
-var GET_SMALLER_BALL_SPAWN_MAX_WAIT = 10
+var GET_SMALLER_BALL_SPAWN_MIN_WAIT = 25
+var GET_SMALLER_BALL_SPAWN_MAX_WAIT = 35
 
 func _ready():
 	add_child(power_up_icon_player_left)
@@ -70,7 +70,7 @@ func _initialize_spike_ball():
 	add_child(spike_ball)
 	spike_ball.name = "IceSpikeBall"
 	
-	spike_ball.animated_sprite_2d.play()
+
 	spike_ball.position = Vector2(spike_ball_x, spike_ball_y)
 	return spike_ball
 	

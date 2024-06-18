@@ -5,7 +5,7 @@ extends Player
 
 const PLAYER_LEFT_ICED = preload("res://Assets/arts/Player-1.png_3-1.png.png")
 
-var vel : float = 550.0
+var vel : float = 500.0
 var is_freezed_left : bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
