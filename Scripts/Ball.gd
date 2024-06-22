@@ -9,6 +9,8 @@ signal get_smaller_ball_touched
 var speed = 200
 var direction = Vector2(1, 1)
 
+@onready var paddle_hit_sound = $"../PaddleHitSound"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
@@ -53,6 +55,7 @@ func _on_area_entered(area):
 		
 
 	elif area.name == "PlayerLeft" or area.name == "PlayerRight":
+		paddle_hit_sound.play()
 		_handle_paddle_collision(area)
 		if area.name == "PlayerLeft":
 			emit_signal("bounced_from_left")

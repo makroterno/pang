@@ -5,6 +5,8 @@ extends Node2D
 @onready var ball = $Ball
 @onready var spike_ball_spawn_timer = $Timers/SpikeBallSpawnTimer
 @onready var screen_size = Vector2(get_viewport_rect().size)
+@onready var audio_stream_player_2d = $MainMusic
+
 
 const POWER_UP_ICON = preload("res://Scenes/PowerUpIcon.tscn")
 
@@ -12,7 +14,7 @@ signal esc_pressed
 
 func _ready():
 	get_tree().paused = true
-
+	audio_stream_player_2d.play(GlobalVariables.music_progress)
 
 	player_right_score.text = str(GlobalVariables.right_player_score)
 	player_left_score.text = str(GlobalVariables.left_player_score)
@@ -34,7 +36,7 @@ func _increase_score(paddle: Node):
 		player_left_score.text = str(GlobalVariables.left_player_score)
 
 func _restart_game():
-
+	GlobalVariables.music_progress = audio_stream_player_2d.get_playback_position()  
 	get_tree().reload_current_scene()
 	
 func _on_ball_hand_over(paddle: Node):

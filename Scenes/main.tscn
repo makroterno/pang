@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://unm41ipcnua2"]
+[gd_scene load_steps=22 format=3 uid="uid://unm41ipcnua2"]
 
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://Scripts/powerup_manager.gd" id="10_tdddr"]
 [ext_resource type="Script" path="res://Scripts/BeginningCountdown.gd" id="11_iuyer"]
 [ext_resource type="PackedScene" uid="uid://bnhj3dom2hmls" path="res://Scenes/esc_menu.tscn" id="12_46q0f"]
+[ext_resource type="AudioStream" uid="uid://c048u5oidpgo4" path="res://Assets/MainGameMusic.mp3" id="13_ljvlg"]
+[ext_resource type="AudioStream" uid="uid://cc1jhf1bgbfu1" path="res://Assets/HitSFX.mp3" id="14_53h1p"]
 
 [sub_resource type="Curve" id="Curve_awbyw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -170,6 +172,12 @@ label_settings = SubResource("LabelSettings_5di44")
 [node name="ESCMenu" parent="Node" instance=ExtResource("12_46q0f")]
 offset_left = -3.0
 offset_right = -3.0
+
+[node name="MainMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ljvlg")
+
+[node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_53h1p")
 
 [connection signal="esc_pressed" from="." to="Node/ESCMenu" method="_on_main_esc_pressed"]
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
