@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://unm41ipcnua2"]
+[gd_scene load_steps=19 format=3 uid="uid://unm41ipcnua2"]
 
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://laku02i5hdmw" path="res://Assets/arts/Board.png" id="6_nb2fi"]
 [ext_resource type="Script" path="res://Scripts/player_left.gd" id="7_umkkf"]
 [ext_resource type="Script" path="res://Scripts/powerup_manager.gd" id="10_tdddr"]
+[ext_resource type="Script" path="res://Scripts/BeginningCountdown.gd" id="11_iuyer"]
 
 [sub_resource type="Curve" id="Curve_awbyw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -32,6 +33,10 @@ size = Vector2(1152, 201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icfj3"]
 size = Vector2(348, 628)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5di44"]
+font_size = 64
+shadow_size = 16
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lfm4e")
@@ -148,6 +153,18 @@ autostart = true
 
 [node name="GetSmallerBallSpawnTimer" type="Timer" parent="Timers"]
 autostart = true
+
+[node name="BeginningCountdown" type="Node2D" parent="."]
+position = Vector2(576, 147)
+script = ExtResource("11_iuyer")
+
+[node name="Label" type="Label" parent="BeginningCountdown"]
+offset_left = -19.0
+offset_top = -1.0
+offset_right = 21.0
+offset_bottom = 87.0
+text = "3"
+label_settings = SubResource("LabelSettings_5di44")
 
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
 [connection signal="bounced_from_left" from="Ball" to="." method="_on_ball_bounced_from_left"]

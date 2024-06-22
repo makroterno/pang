@@ -11,6 +11,8 @@ const POWER_UP_ICON = preload("res://Scenes/PowerUpIcon.tscn")
 
 
 func _ready():
+	get_tree().paused = true
+
 	player_right_score.text = str(GlobalVariables.right_player_score)
 	player_left_score.text = str(GlobalVariables.left_player_score)
 

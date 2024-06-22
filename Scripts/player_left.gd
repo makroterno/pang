@@ -5,7 +5,7 @@ extends Player
 
 const PLAYER_LEFT_ICED = preload("res://Assets/arts/Player-1.png_3-1.png.png")
 
-var vel : float = 500.0
+var vel : float = 530.0
 var is_freezed_left : bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,8 +42,6 @@ func _on_power_up_manager_get_bigger_available_left():
 		await get_tree().create_timer(3).timeout # waits for 1 second
 		scale.x = 1
 		scale.y = 1
-
-
 
 func _on_power_up_manager_get_smaller_available_left():
 		player_right.scale.x = 0.5

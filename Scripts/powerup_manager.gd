@@ -41,14 +41,14 @@ const POWERUP_SPAWN_X_MAX = 1040
 const POWERUP_SPAWN_Y_MIN = 70
 const POWERUP_SPAWN_Y_MAX = 615
 
-var SPIKE_BALL_SPAWN_MIN_WAIT = 25
-var SPIKE_BALL_SPAWN_MAX_WAIT = 35
+var SPIKE_BALL_SPAWN_MIN_WAIT = 1 #25
+var SPIKE_BALL_SPAWN_MAX_WAIT = 2 #35
 
-var GET_BIGGER_BALL_SPAWN_MIN_WAIT = 25
-var GET_BIGGER_BALL_SPAWN_MAX_WAIT = 35
+var GET_BIGGER_BALL_SPAWN_MIN_WAIT = 1 #25
+var GET_BIGGER_BALL_SPAWN_MAX_WAIT = 2 #45
 
-var GET_SMALLER_BALL_SPAWN_MIN_WAIT = 25
-var GET_SMALLER_BALL_SPAWN_MAX_WAIT = 35
+var GET_SMALLER_BALL_SPAWN_MIN_WAIT = 1 #20
+var GET_SMALLER_BALL_SPAWN_MAX_WAIT = 2 #40
 
 func _ready():
 	add_child(power_up_icon_player_left)
@@ -57,9 +57,12 @@ func _ready():
 	power_up_icon_player_left.visible = false
 	power_up_icon_player_right.visible = false
 	
-	power_up_icon_player_left.position = Vector2(280, 27)
-	power_up_icon_player_right.position = Vector2(878, 27)
+	power_up_icon_player_left.position = Vector2(280, 23)
+	power_up_icon_player_right.position = Vector2(878, 23)
 	
+	spike_ball_spawn_timer.wait_time = randf_range(SPIKE_BALL_SPAWN_MIN_WAIT, SPIKE_BALL_SPAWN_MAX_WAIT)
+	get_bigger_ball_spawn_timer.wait_time = randf_range(GET_BIGGER_BALL_SPAWN_MIN_WAIT, GET_BIGGER_BALL_SPAWN_MAX_WAIT)
+	get_smaller_ball_spawn_timer.wait_time = randf_range(GET_SMALLER_BALL_SPAWN_MIN_WAIT, GET_SMALLER_BALL_SPAWN_MAX_WAIT)
 
 func _initialize_spike_ball():
 	
@@ -153,6 +156,7 @@ func _on_ball_bounced_from_right():
 
 
 func _on_spike_ball_spawn_timer_timeout():
+	print("spawn_timer_timeout_still_works!!")
 	spike_ball_spawn_timer.wait_time = randf_range(SPIKE_BALL_SPAWN_MIN_WAIT, SPIKE_BALL_SPAWN_MAX_WAIT)
 	_initialize_spike_ball()
 
