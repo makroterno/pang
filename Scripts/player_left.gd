@@ -1,7 +1,8 @@
 extends Player
 
-@onready var ball = $"../../Ball"
+@onready var ball = $"../Ball"
 @onready var player_right = $"../PlayerRight"
+
 
 const PLAYER_LEFT_ICED = preload("res://Assets/arts/Player-1.png_3-1.png.png")
 

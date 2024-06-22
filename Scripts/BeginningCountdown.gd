@@ -22,4 +22,5 @@ func _process(delta):
 	else:
 		hide()
 		get_tree().paused = false
+		queue_free()
 		

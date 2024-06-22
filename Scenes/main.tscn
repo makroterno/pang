@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://unm41ipcnua2"]
+[gd_scene load_steps=20 format=3 uid="uid://unm41ipcnua2"]
 
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="1_8cf0k"]
 [ext_resource type="Texture2D" uid="uid://6m3kp3gtau2t" path="res://Assets/arts/Ball.png" id="1_8nktk"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/player_left.gd" id="7_umkkf"]
 [ext_resource type="Script" path="res://Scripts/powerup_manager.gd" id="10_tdddr"]
 [ext_resource type="Script" path="res://Scripts/BeginningCountdown.gd" id="11_iuyer"]
+[ext_resource type="PackedScene" uid="uid://bnhj3dom2hmls" path="res://Scenes/esc_menu.tscn" id="12_46q0f"]
 
 [sub_resource type="Curve" id="Curve_awbyw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -94,21 +95,19 @@ offset_bottom = 52.0
 text = "0"
 label_settings = SubResource("LabelSettings_cgjii")
 
-[node name="Players" type="Node" parent="."]
-
-[node name="PlayerLeft" parent="Players" instance=ExtResource("3_01aqu")]
-position = Vector2(22, 324)
-script = ExtResource("7_umkkf")
-sprite = ExtResource("4_tft0p")
-control_up = "p_left_up"
-control_down = "p_left_down"
-
-[node name="PlayerRight" parent="Players" instance=ExtResource("3_01aqu")]
+[node name="PlayerRight" parent="." instance=ExtResource("3_01aqu")]
 position = Vector2(1130, 324)
 sprite = ExtResource("4_o0nxp")
 ball_direction = Vector2(-1, 0)
 control_up = "p_right_up"
 control_down = "p_right_down"
+
+[node name="PlayerLeft" parent="." instance=ExtResource("3_01aqu")]
+position = Vector2(22, 324)
+script = ExtResource("7_umkkf")
+sprite = ExtResource("4_tft0p")
+control_up = "p_left_up"
+control_down = "p_left_down"
 
 [node name="Borders" type="Node" parent="."]
 
@@ -166,37 +165,44 @@ offset_bottom = 87.0
 text = "3"
 label_settings = SubResource("LabelSettings_5di44")
 
+[node name="Node" type="Node" parent="."]
+
+[node name="ESCMenu" parent="Node" instance=ExtResource("12_46q0f")]
+offset_left = -3.0
+offset_right = -3.0
+
+[connection signal="esc_pressed" from="." to="Node/ESCMenu" method="_on_main_esc_pressed"]
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
 [connection signal="bounced_from_left" from="Ball" to="." method="_on_ball_bounced_from_left"]
-[connection signal="bounced_from_left" from="Ball" to="Players/PlayerRight" method="_on_ball_bounced_from_left"]
+[connection signal="bounced_from_left" from="Ball" to="PlayerRight" method="_on_ball_bounced_from_left"]
 [connection signal="bounced_from_left" from="Ball" to="PowerUpManager" method="_on_ball_bounced_from_left"]
 [connection signal="bounced_from_right" from="Ball" to="." method="_on_ball_bounced_from_right"]
-[connection signal="bounced_from_right" from="Ball" to="Players/PlayerRight" method="_on_ball_bounced_from_right"]
+[connection signal="bounced_from_right" from="Ball" to="PlayerRight" method="_on_ball_bounced_from_right"]
 [connection signal="bounced_from_right" from="Ball" to="PowerUpManager" method="_on_ball_bounced_from_right"]
 [connection signal="get_bigger_ball_touched" from="Ball" to="." method="_on_ball_get_bigger_ball_touched"]
-[connection signal="get_bigger_ball_touched" from="Ball" to="Players/PlayerRight" method="_on_ball_get_bigger_ball_touched"]
+[connection signal="get_bigger_ball_touched" from="Ball" to="PlayerRight" method="_on_ball_get_bigger_ball_touched"]
 [connection signal="get_bigger_ball_touched" from="Ball" to="PowerUpManager" method="_on_ball_get_bigger_ball_touched"]
-[connection signal="get_smaller_ball_touched" from="Ball" to="Players/PlayerRight" method="_on_ball_get_smaller_ball_touched"]
+[connection signal="get_smaller_ball_touched" from="Ball" to="PlayerRight" method="_on_ball_get_smaller_ball_touched"]
 [connection signal="get_smaller_ball_touched" from="Ball" to="PowerUpManager" method="_on_ball_get_smaller_ball_touched"]
 [connection signal="hand_over" from="Ball" to="." method="_on_ball_hand_over"]
 [connection signal="ice_spike_ball_touched" from="Ball" to="." method="_on_ball_ice_spike_ball_touched"]
-[connection signal="ice_spike_ball_touched" from="Ball" to="Players/PlayerRight" method="_on_ball_ice_spike_ball_touched"]
+[connection signal="ice_spike_ball_touched" from="Ball" to="PlayerRight" method="_on_ball_ice_spike_ball_touched"]
 [connection signal="ice_spike_ball_touched" from="Ball" to="PowerUpManager" method="_on_ball_ice_spike_ball_touched"]
-[connection signal="power_used" from="Players/PlayerLeft" to="." method="_on_player_left_power_used"]
-[connection signal="power_used" from="Players/PlayerLeft" to="PowerUpManager" method="_on_player_left_power_used"]
-[connection signal="ai_get_bigger" from="Players/PlayerRight" to="Players/PlayerLeft" method="_on_player_right_ai_get_bigger"]
-[connection signal="ai_get_smaller" from="Players/PlayerRight" to="Players/PlayerLeft" method="_on_player_right_ai_get_smaller"]
-[connection signal="ai_ice_spike_ready" from="Players/PlayerRight" to="." method="_on_player_right_ai_ice_spike_ready"]
-[connection signal="ai_ice_spike_ready" from="Players/PlayerRight" to="Players/PlayerLeft" method="_on_player_right_ai_ice_spike_ready"]
-[connection signal="player_ice_spike_ready" from="Players/PlayerRight" to="." method="_on_player_right_player_ice_spike_ready"]
-[connection signal="power_used" from="Players/PlayerRight" to="." method="_on_player_right_power_used"]
-[connection signal="power_used" from="Players/PlayerRight" to="PowerUpManager" method="_on_player_right_power_used"]
-[connection signal="get_bigger_available_left" from="PowerUpManager" to="Players/PlayerLeft" method="_on_power_up_manager_get_bigger_available_left"]
-[connection signal="get_bigger_available_right" from="PowerUpManager" to="Players/PlayerRight" method="_on_power_up_manager_get_bigger_available_right"]
-[connection signal="get_smaller_available_left" from="PowerUpManager" to="Players/PlayerLeft" method="_on_power_up_manager_get_smaller_available_left"]
-[connection signal="get_smaller_available_right" from="PowerUpManager" to="Players/PlayerRight" method="_on_power_up_manager_get_smaller_available_right"]
-[connection signal="ice_spike_available_left" from="PowerUpManager" to="Players/PlayerLeft" method="_on_power_up_manager_ice_spike_available_left"]
-[connection signal="ice_spike_available_right" from="PowerUpManager" to="Players/PlayerRight" method="_on_power_up_manager_ice_spike_available_right"]
+[connection signal="ai_get_bigger" from="PlayerRight" to="PlayerLeft" method="_on_player_right_ai_get_bigger"]
+[connection signal="ai_get_smaller" from="PlayerRight" to="PlayerLeft" method="_on_player_right_ai_get_smaller"]
+[connection signal="ai_ice_spike_ready" from="PlayerRight" to="." method="_on_player_right_ai_ice_spike_ready"]
+[connection signal="ai_ice_spike_ready" from="PlayerRight" to="PlayerLeft" method="_on_player_right_ai_ice_spike_ready"]
+[connection signal="player_ice_spike_ready" from="PlayerRight" to="." method="_on_player_right_player_ice_spike_ready"]
+[connection signal="power_used" from="PlayerRight" to="." method="_on_player_right_power_used"]
+[connection signal="power_used" from="PlayerRight" to="PowerUpManager" method="_on_player_right_power_used"]
+[connection signal="power_used" from="PlayerLeft" to="." method="_on_player_left_power_used"]
+[connection signal="power_used" from="PlayerLeft" to="PowerUpManager" method="_on_player_left_power_used"]
+[connection signal="get_bigger_available_left" from="PowerUpManager" to="PlayerLeft" method="_on_power_up_manager_get_bigger_available_left"]
+[connection signal="get_bigger_available_right" from="PowerUpManager" to="PlayerRight" method="_on_power_up_manager_get_bigger_available_right"]
+[connection signal="get_smaller_available_left" from="PowerUpManager" to="PlayerLeft" method="_on_power_up_manager_get_smaller_available_left"]
+[connection signal="get_smaller_available_right" from="PowerUpManager" to="PlayerRight" method="_on_power_up_manager_get_smaller_available_right"]
+[connection signal="ice_spike_available_left" from="PowerUpManager" to="PlayerLeft" method="_on_power_up_manager_ice_spike_available_left"]
+[connection signal="ice_spike_available_right" from="PowerUpManager" to="PlayerRight" method="_on_power_up_manager_ice_spike_available_right"]
 [connection signal="timeout" from="Timers/SpikeBallSpawnTimer" to="." method="_on_spike_ball_spawn_timer_timeout"]
 [connection signal="timeout" from="Timers/SpikeBallSpawnTimer" to="PowerUpManager" method="_on_spike_ball_spawn_timer_timeout"]
 [connection signal="timeout" from="Timers/GetBiggerBallSpawnTimer" to="PowerUpManager" method="_on_get_bigger_ball_spawn_timer_timeout"]

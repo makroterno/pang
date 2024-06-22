@@ -6,15 +6,22 @@ extends Node2D
 @onready var spike_ball_spawn_timer = $Timers/SpikeBallSpawnTimer
 @onready var screen_size = Vector2(get_viewport_rect().size)
 
-
 const POWER_UP_ICON = preload("res://Scenes/PowerUpIcon.tscn")
 
+signal esc_pressed
 
 func _ready():
 	get_tree().paused = true
 
+
 	player_right_score.text = str(GlobalVariables.right_player_score)
 	player_left_score.text = str(GlobalVariables.left_player_score)
+	
+func _process(delta):
+	if Input.is_action_just_pressed("exit_game"):
+			get_tree().paused = true
+			esc_pressed.emit()
+			modulate = Color(0.3, 0.3, 0.3)
 
 func _increase_score(paddle: Node):
 
@@ -27,7 +34,7 @@ func _increase_score(paddle: Node):
 		player_left_score.text = str(GlobalVariables.left_player_score)
 
 func _restart_game():
-	# Do not restart the WHOLE scene. There is no need for that.
+
 	get_tree().reload_current_scene()
 	
 func _on_ball_hand_over(paddle: Node):
