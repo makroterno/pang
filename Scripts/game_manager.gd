@@ -11,6 +11,10 @@ extends Node2D
 const POWER_UP_ICON = preload("res://Scenes/PowerUpIcon.tscn")
 
 signal esc_pressed
+signal right_wins
+signal left_wins
+
+var go = false
 
 func _ready():
 	get_tree().paused = true
@@ -34,13 +38,26 @@ func _increase_score(paddle: Node):
 	else:
 		GlobalVariables.left_player_score += 1
 		player_left_score.text = str(GlobalVariables.left_player_score)
+	
+	if GlobalVariables.right_player_score == 1:
+		right_wins.emit()
+		
+	elif GlobalVariables.left_player_score == 1:
+		left_wins.emit()
 
 func _restart_game():
-	GlobalVariables.music_progress = audio_stream_player_2d.get_playback_position()  
-	get_tree().reload_current_scene()
+	GlobalVariables.music_progress = audio_stream_player_2d.get_playback_position()
+	if not go:
+		get_tree().reload_current_scene()
 	
 func _on_ball_hand_over(paddle: Node):
 	_increase_score(paddle)
 	_restart_game()
 
+func _on_right_wins():
+	get_tree().change_scene_to_file("res://Scenes/on_someone_wins.tscn")
+	go = true
+func _on_left_wins():
+	get_tree().change_scene_to_file("res://Scenes/on_someone_wins.tscn")
+	go = true
 

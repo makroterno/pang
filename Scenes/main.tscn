@@ -167,9 +167,9 @@ offset_bottom = 87.0
 text = "3"
 label_settings = SubResource("LabelSettings_5di44")
 
-[node name="Node" type="Node" parent="."]
+[node name="PopUpMenus" type="Node" parent="."]
 
-[node name="ESCMenu" parent="Node" instance=ExtResource("12_46q0f")]
+[node name="ESCMenu" parent="PopUpMenus" instance=ExtResource("12_46q0f")]
 offset_left = -3.0
 offset_right = -3.0
 
@@ -179,7 +179,9 @@ stream = ExtResource("13_ljvlg")
 [node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_53h1p")
 
-[connection signal="esc_pressed" from="." to="Node/ESCMenu" method="_on_main_esc_pressed"]
+[connection signal="esc_pressed" from="." to="PopUpMenus/ESCMenu" method="_on_main_esc_pressed"]
+[connection signal="left_wins" from="." to="." method="_on_left_wins"]
+[connection signal="right_wins" from="." to="." method="_on_right_wins"]
 [connection signal="area_entered" from="Ball" to="Ball" method="_on_area_entered"]
 [connection signal="bounced_from_left" from="Ball" to="." method="_on_ball_bounced_from_left"]
 [connection signal="bounced_from_left" from="Ball" to="PlayerRight" method="_on_ball_bounced_from_left"]
